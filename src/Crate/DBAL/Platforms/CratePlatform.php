@@ -23,7 +23,7 @@ namespace Crate\DBAL\Platforms;
 
 use Crate\DBAL\Types\MapType;
 use Crate\DBAL\Types\TimestampType;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\Event\SchemaCreateTableColumnEventArgs;
 use Doctrine\DBAL\Event\SchemaCreateTableEventArgs;
 use Doctrine\DBAL\Events;
@@ -48,7 +48,6 @@ class CratePlatform extends AbstractPlatform
      */
     public function __construct()
     {
-        parent::__construct();
         $this->initializeDoctrineTypeMappings();
         if (!Type::hasType(MapType::NAME)) {
             Type::addType(MapType::NAME, 'Crate\DBAL\Types\MapType');
@@ -62,13 +61,13 @@ class CratePlatform extends AbstractPlatform
     /**
      * {@inheritDoc}
      */
-    public function getSubstringExpression($value, $from = 0, $length = null)
+    public function getSubstringExpression($string, $start = 0, $length = null)
     {
         if ($length === null) {
-            return 'SUBSTR(' . $value . ', ' . $from . ')';
+            return 'SUBSTR(' . $string . ', ' . $start . ')';
         }
 
-        return 'SUBSTR(' . $value . ', ' . $from . ', ' . $length . ')';
+        return 'SUBSTR(' . $string . ', ' . $start . ', ' . $length . ')';
     }
 
     /**
@@ -781,7 +780,7 @@ class CratePlatform extends AbstractPlatform
      */
     public static function prepareColumnData(AbstractPlatform $platform, $column, $primaries = array())
     {
-        if ($column->hasCustomSchemaOption("unique") ? $column->getCustomSchemaOption("unique") : false) {
+        if ($column->hasCustomSchemaOption("unique") && $column->getCustomSchemaOption("unique")) {
             throw DBALException::notSupported("Unique constraints are not supported. Use `primary key` instead");
         }
 
@@ -794,7 +793,7 @@ class CratePlatform extends AbstractPlatform
         $columnData['unique'] = false;
         $columnData['version'] = $column->hasPlatformOption("version") ? $column->getPlatformOption("version") : false;
 
-        if (strtolower($columnData['type']) == $platform->getVarcharTypeDeclarationSQLSnippet(0, false)
+        if (strtolower($columnData['type']->getName()) == $platform->getVarcharTypeDeclarationSQLSnippet(0, false)
                 && $columnData['length'] === null) {
             $columnData['length'] = 255;
         }
@@ -858,4 +857,10 @@ class CratePlatform extends AbstractPlatform
                "FROM information_schema.tables c " .
                "WHERE " . $this->getTableWhereClause($table);
     }
+
+    public function getCurrentDatabaseExpression(): string
+    {
+        throw DBALException::notSupported(__METHOD__);
+    }
+
 }

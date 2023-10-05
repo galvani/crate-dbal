@@ -21,10 +21,12 @@
  */
 namespace Crate\DBAL\Schema;
 
+use Crate\DBAL\Driver\PDOCrate\PDOConnection;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Schema\Table;
+
 
 class CrateSchemaManager extends AbstractSchemaManager
 {
@@ -122,6 +124,7 @@ class CrateSchemaManager extends AbstractSchemaManager
         $indexes = $this->listTableIndexes($tableName);
         $options = [];
 
+        assert($this->_conn instanceof PDOConnection);
         $s = $this->_conn->fetchAssoc($this->_platform->getTableOptionsSQL($tableName));
 
         $options['sharding_routing_column'] = $s['clustered_by'];

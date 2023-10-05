@@ -23,9 +23,9 @@
 namespace Crate\DBAL\Driver\PDOCrate;
 
 use Crate\PDO\PDO;
-use Doctrine\DBAL\Driver\ServerInfoAwareConnection;
+use Crate\PDO\PDOCrateDB;
 
-class PDOConnection extends PDO implements ServerInfoAwareConnection
+class PDOConnection extends PDOCrateDB
 {
     /**
      * @param string $dsn
