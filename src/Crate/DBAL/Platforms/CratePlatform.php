@@ -860,7 +860,7 @@ class CratePlatform extends AbstractPlatform
 
     public function getCurrentDatabaseExpression(): string
     {
-        throw DBALException::notSupported(__METHOD__);
+        return "select current_database() AS db";
     }
 
 }
