@@ -860,7 +860,7 @@ class CratePlatform extends AbstractPlatform
 
     public function getCurrentDatabaseExpression(): string
     {
-        return "select current_database() AS db";
+        return "current_database() AS db";
     }
 
 }
