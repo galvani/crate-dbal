@@ -13,7 +13,7 @@ use Doctrine\DBAL\Query;
 
 class Driver implements DBALDriver
 {
-    const VERSION = self::VERSION_4;
+    const VERSION = '3.7.0';
     const NAME = 'crate';
 
     private const VERSION_057 = '0.57.0';
