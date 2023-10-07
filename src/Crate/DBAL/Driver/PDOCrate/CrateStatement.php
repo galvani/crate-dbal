@@ -23,10 +23,11 @@
 namespace Crate\DBAL\Driver\PDOCrate;
 
 use Crate\PDO\PDOStatement;
+use Doctrine\DBAL\Driver\Statement;
 
 /**
  * @internal
  */
-class CrateStatement extends PDOStatement
+class CrateStatement extends PDOStatement implements Statement
 {
 }
