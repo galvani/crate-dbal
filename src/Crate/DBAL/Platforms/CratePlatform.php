@@ -320,7 +320,7 @@ class CratePlatform extends AbstractPlatform
         }
 
         return 'INDEX ' . $name->getQuotedName($this) .
-               ' USING FULLTEXT ('. $this->getIndexFieldDeclarationListSQL($columns) . ')';
+               ' USING FULLTEXT ('. $this->getIndexFieldDeclarationListSQL($index) . ')';
     }
 
     /**
