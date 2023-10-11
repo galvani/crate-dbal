@@ -24,6 +24,11 @@ namespace Crate\DBAL\Driver\PDOCrate;
 
 use Crate\PDO\PDO;
 use Crate\PDO\PDOCrateDB;
+use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Driver\Exception;
+use Doctrine\DBAL\Driver\Result;
+use Doctrine\DBAL\Driver\Statement;
+use Doctrine\DBAL\ParameterType;
 
 class PDOConnection extends PDOCrateDB
 {
