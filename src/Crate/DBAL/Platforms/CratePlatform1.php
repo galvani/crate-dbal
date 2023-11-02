@@ -42,6 +42,4 @@ class CratePlatform1 extends CratePlatform
     {
         return self::TABLE_WHERE_CLAUSE_FORMAT_1;
     }
-
-
 }

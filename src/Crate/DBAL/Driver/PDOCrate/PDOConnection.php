@@ -54,4 +54,40 @@ class PDOConnection extends PDOCrateDB
     {
         return false;
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * References:
+     * - https://github.com/doctrine/dbal/issues/2025
+     * - https://github.com/doctrine/dbal/pull/517
+     * - https://github.com/doctrine/dbal/pull/373
+     */
+    public function prepare($sql, $options = null): StatementInterface
+    {
+        try {
+            $stmt = $this->connection->prepare($sql, $options);
+            assert($stmt instanceof PDOStatement);
+
+            return new \Doctrine\DBAL\Driver\PDO\Statement($stmt);
+        } catch (PDOException $exception) {
+            throw Exception::new($exception);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function exec($sql): int
+    {
+        try {
+            $result = $this->connection->exec($sql);
+
+            assert($result !== false);
+
+            return $result;
+        } catch (PDOException $exception) {
+            throw Exception::new($exception);
+        }
+    }
 }

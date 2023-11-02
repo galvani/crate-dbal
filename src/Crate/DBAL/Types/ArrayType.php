@@ -61,20 +61,12 @@ class ArrayType extends Type
         if (!is_array($value) || (count($value) > 0 && !(array_keys($value) === range(0, count($value) - 1)))) {
             return null;
         }
-        if ($platform instanceof \Crate\DBAL\Platforms\CratePlatform) {
-            return json_encode(unserialize($value));
-        }
-
         return $value;
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        if ($platform instanceof \Crate\DBAL\Platforms\CratePlatform) {
-            return json_decode($value, true);
-        }
-
-        return unserialize($value);
+        return $value;
     }
 
     /**
