@@ -55,7 +55,7 @@ class CratePlatform extends AbstractPlatform
         if (!Type::hasType(TimestampType::NAME)) {
             Type::addType(TimestampType::NAME, 'Crate\DBAL\Types\TimestampType');
         }
-        Type::overrideType('array', 'Crate\DBAL\Types\ArrayType');
+        //Type::overrideType('array', 'Crate\DBAL\Types\ArrayType');
     }
 
     /**
