@@ -50,9 +50,20 @@ You need to be using PHP and Composer_.
 Installation
 ============
 
+Add these repositories to composer.json::
+
+    {
+      "type": "vcs",
+      "url": "https://github.com/galvani/crate-dbal.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/galvani/crate-pdo.git"
+    },
+
 The CrateDB PDO adapter is available as a Composer package. Install it like::
 
-    composer require crate/crate-dbal
+    composer require crate/crate-dbal 4.1.x-dev
 
 See the `installation documentation`_ for more info.
 
