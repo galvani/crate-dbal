@@ -2,6 +2,10 @@
 CrateDB DBAL Driver
 ===================
 
+=====================================================================
+This version depends on https://github.com/galvani/crate-pdo/tree/3.7
+=====================================================================
+
 .. image:: https://github.com/crate/crate-dbal/workflows/Tests/badge.svg
     :target: https://github.com/crate/crate-dbal/actions?workflow=Tests
     :alt: Build status (code)
